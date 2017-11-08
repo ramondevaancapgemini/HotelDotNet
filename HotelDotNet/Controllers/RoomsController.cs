@@ -7,21 +7,28 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HotelDotNet.Data;
 using HotelDotNet.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Localization;
 
 namespace HotelDotNet.Controllers
 {
+    [Authorize(Roles = "Receptionist")]
     public class RoomsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IStringLocalizer<RoomsController> _stringLocalizer;
 
-        public RoomsController(ApplicationDbContext context)
+        public RoomsController(ApplicationDbContext context, IStringLocalizer<RoomsController> stringLocalizer)
         {
             _context = context;
+            _stringLocalizer = stringLocalizer;
         }
 
         // GET: Rooms
         public async Task<IActionResult> Index()
         {
+            var s = _stringLocalizer["Test"];
+
             return View(await _context.Room.ToListAsync());
         }
 

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HotelDotNet.Data;
 using HotelDotNet.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelDotNet.Controllers
 {
+    [Authorize(Roles = "Receptionist")]
     public class BlocksController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -3,7 +3,6 @@ D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\bin\Debug\netcoreapp2.0\HotelDo
 D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\bin\Debug\netcoreapp2.0\HotelDotNet.runtimeconfig.dev.json
 D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\bin\Debug\netcoreapp2.0\HotelDotNet.dll
 D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\bin\Debug\netcoreapp2.0\HotelDotNet.pdb
-D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\obj\Debug\netcoreapp2.0\HotelDotNet.csprojResolveAssemblyReference.cache
 D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\obj\Debug\netcoreapp2.0\HotelDotNet.csproj.CoreCompileInputs.cache
 D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
 D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\obj\Debug\netcoreapp2.0\HotelDotNet.AssemblyInfoInputs.cache
@@ -11,7 +10,9 @@ D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\obj\Debug\netcoreapp2.0\HotelDo
 D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\obj\Debug\netcoreapp2.0\HotelDotNet.dll
 D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\obj\Debug\netcoreapp2.0\HotelDotNet.pdb
 D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\obj\Debug\netcoreapp2.0\HotelDotNet.csproj.GenerateResource.Cache
+D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\bin\Debug\netcoreapp2.0\en-US\HotelDotNet.resources.dll
 D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\bin\Debug\netcoreapp2.0\nl-NL\HotelDotNet.resources.dll
-D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\obj\Debug\netcoreapp2.0\HotelDotNet.Resources.SharedResource.resources
-D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\obj\Debug\netcoreapp2.0\HotelDotNet.Resources.SharedResource.nl-NL.resources
+D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\obj\Debug\netcoreapp2.0\en-US\HotelDotNet.resources.dll
 D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\obj\Debug\netcoreapp2.0\nl-NL\HotelDotNet.resources.dll
+D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\obj\Debug\netcoreapp2.0\HotelDotNet.Resources.Controllers.RoomsController.en-US.resources
+D:\Users\ravaan\Projects\HotelDotNet\HotelDotNet\obj\Debug\netcoreapp2.0\HotelDotNet.Resources.Controllers.RoomsController.nl-NL.resources

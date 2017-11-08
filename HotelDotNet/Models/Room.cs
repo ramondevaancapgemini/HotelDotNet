@@ -11,10 +11,13 @@ namespace HotelDotNet.Models
         [Key]
         public long Id { get; set; }
         [Required]
+        [Display(Name = "Description")]
         public string Description { get; set; }
         [Required]
+        [Display(Name = "Room type")]
         public RoomType RoomType { get; set; }
         [Required]
+        [Display(Name = "Room size")]
         public RoomSize RoomSize { get; set; }
     }
 }

@@ -9,25 +9,32 @@ namespace HotelDotNet.Models.AccountViewModels
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Gender")]
         public Gender Gender { get; set; }
 
         [Required]
+        [Display(Name = "Given name")]
         public string GivenName { get; set; }
 
         [Required]
+        [Display(Name = "Surname")]
         public string Surname { get; set; }
 
         [Required]
+        [Display(Name = "Surname prefix")]
         public string SurnamePrefix { get; set; }
 
         [Required]
-        [Display(Name = "street")]
+        [Display(Name = "Street")]
         public string Street { get; set; }
         [Required]
+        [Display(Name = "City")]
         public string City { get; set; }
         [Required]
+        [Display(Name = "Postal code")]
         public string PostalCode { get; set; }
         [Required]
+        [Display(Name = "Country")]
         public string Country { get; set; }
 
         [Required]

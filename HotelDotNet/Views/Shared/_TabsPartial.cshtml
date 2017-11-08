@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using HotelDotNet.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="nav navbar-nav">
+    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+@if (User.IsInRole("Receptionist") || User.IsInRole("Administrator"))
+{
+    <li><a asp-area="" asp-controller="Rooms" asp-action="Index">Rooms</a></li>
+    <li><a asp-area="" asp-controller="Bookings" asp-action="Index">Bookings</a></li>
+    <li><a asp-area="" asp-controller="Payments" asp-action="Index">Payments</a></li>
+    <li><a asp-area="" asp-controller="Blocks" asp-action="Index">Blocks</a></li>
+}
+</ul>
