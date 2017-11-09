@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HotelDotNet.Data;
 using HotelDotNet.Models;
+using HotelDotNet.Models.ViewModels;
+using HotelDotNet.Utilities;
 using Microsoft.AspNetCore.Authorization;
 
 namespace HotelDotNet.Controllers
@@ -24,8 +26,8 @@ namespace HotelDotNet.Controllers
         // GET: Bookings
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Booking.Include(b => b.Room).Include(b => b.User);
-            return View(await applicationDbContext.ToListAsync());
+            var booking = _context.Booking.Include(b => b.Room).Include(b => b.User);
+            return View(await booking.ToListAsync());
         }
 
         // GET: Bookings/Details/5
@@ -77,9 +79,20 @@ namespace HotelDotNet.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(booking);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var room = await _context.Room
+                    .Include(r => r.Blocks)
+                    .Include(r => r.Bookings)
+                    .FirstAsync(r => r.Id == booking.RoomId);
+                if (!BookingCheck.IsAvailable(room, booking.From, booking.To))
+                {
+                    ModelState.AddModelError("NotAvailable", "Room is not available for given period.");
+                }
+                else
+                {
+                    _context.Add(booking);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             var rooms = _context.Room
                 .Select(r => new
@@ -142,23 +155,34 @@ namespace HotelDotNet.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                var room = await _context.Room
+                    .Include(r => r.Blocks)
+                    .Include(r => r.Bookings)
+                    .FirstAsync(r => r.Id == booking.RoomId);
+                if (!BookingCheck.IsAvailable(room, booking.From, booking.To))
                 {
-                    _context.Update(booking);
-                    await _context.SaveChangesAsync();
+                    ModelState.AddModelError("NotAvailable", "Room is not available for given period.");
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!BookingExists(booking.Id))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(booking);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!BookingExists(booking.Id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
             }
             var rooms = _context.Room
                 .Select(r => new

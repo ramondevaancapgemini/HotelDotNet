@@ -19,5 +19,8 @@ namespace HotelDotNet.Models
         [Required]
         [Display(Name = "Room size")]
         public RoomSize RoomSize { get; set; }
+
+        public IEnumerable<Booking> Bookings { get; set; }
+        public IEnumerable<Block> Blocks { get; set; }
     }
 }

@@ -69,74 +69,16 @@ namespace HotelDotNet.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(payment);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            var bookings = _context.Booking
-                .Select(b => new
+                var booking = await _context.Booking.Include(b => b.Payment).FirstAsync(b => b.Id == payment.BookingId);
+
+                if (booking.Payment != null)
                 {
-                    Id = b.Id,
-                    Name = string.Join(' ', b.Id, b.User.GivenName, b.User.SurnamePrefix, b.User.Surname)
-                });
-            ViewData["BookingId"] = new SelectList(bookings, "Id", "Name", payment.BookingId);
-            return View(payment);
-        }
-
-        // GET: Payments/Edit/5
-        public async Task<IActionResult> Edit(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var payment = await _context.Payment.SingleOrDefaultAsync(m => m.Id == id);
-            if (payment == null)
-            {
-                return NotFound();
-            }
-            var bookings = _context.Booking
-                .Select(b => new
-                {
-                    Id = b.Id,
-                    Name = string.Join(' ', b.Id, b.User.GivenName, b.User.SurnamePrefix, b.User.Surname)
-                });
-            ViewData["BookingId"] = new SelectList(bookings, "Id", "Name", payment.BookingId);
-            return View(payment);
-        }
-
-        // POST: Payments/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Date,BookingId")] Payment payment)
-        {
-            if (id != payment.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(payment);
+                    ModelState.AddModelError("AlreadyPaid", "Booking was already paid for.");
+                } else { 
+                    _context.Add(payment);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PaymentExists(payment.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
             }
             var bookings = _context.Booking
                 .Select(b => new

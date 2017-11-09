@@ -11,8 +11,12 @@
 @if (User.IsInRole("Receptionist") || User.IsInRole("Administrator"))
 {
     <li><a asp-area="" asp-controller="Rooms" asp-action="Index">Rooms</a></li>
-    <li><a asp-area="" asp-controller="Bookings" asp-action="Index">Bookings</a></li>
+    <li><a asp-area="" asp-controller="Bookings" asp-action="Index">User-Bookings</a></li>
     <li><a asp-area="" asp-controller="Payments" asp-action="Index">Payments</a></li>
     <li><a asp-area="" asp-controller="Blocks" asp-action="Index">Blocks</a></li>
+}
+@if (User.IsInRole("Guest"))
+{
+    <li><a asp-area="" asp-controller="GuestBooking" asp-action="Index">Bookings</a></li>
 }
 </ul>

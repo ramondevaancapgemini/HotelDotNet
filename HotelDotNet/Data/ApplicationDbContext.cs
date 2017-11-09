@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using HotelDotNet.Models;
+using HotelDotNet.Models.ViewModels;
 
 namespace HotelDotNet.Data
 {
@@ -35,5 +36,9 @@ namespace HotelDotNet.Data
         public DbSet<HotelDotNet.Models.Block> Block { get; set; }
 
         public DbSet<HotelDotNet.Models.Payment> Payment { get; set; }
+
+        public DbSet<HotelDotNet.Models.ViewModels.BookingViewModel> BookingViewModel { get; set; }
+
+        public DbSet<HotelDotNet.Models.BookingCreateViewModel> BookingCreateViewModel { get; set; }
     }
 }

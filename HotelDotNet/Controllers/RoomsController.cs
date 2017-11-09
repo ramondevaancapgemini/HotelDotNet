@@ -27,8 +27,6 @@ namespace HotelDotNet.Controllers
         // GET: Rooms
         public async Task<IActionResult> Index()
         {
-            var s = _stringLocalizer["Test"];
-
             return View(await _context.Room.ToListAsync());
         }
 

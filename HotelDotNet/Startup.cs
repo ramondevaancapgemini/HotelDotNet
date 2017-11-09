@@ -49,7 +49,8 @@ namespace HotelDotNet
             services.AddTransient<IEmailSender, EmailSender>();
 
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddDataAnnotationsLocalization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

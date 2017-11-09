@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using HotelDotNet.Models.Attributes;
 
 namespace HotelDotNet.Models
 {
@@ -13,6 +14,7 @@ namespace HotelDotNet.Models
         [Required]
         public DateTime From { get; set; }
         [Required]
+        [DateAfter("From")]
         public DateTime To { get; set; }
 
 

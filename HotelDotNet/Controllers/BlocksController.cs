@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HotelDotNet.Data;
 using HotelDotNet.Models;
+using HotelDotNet.Utilities;
 using Microsoft.AspNetCore.Authorization;
 
 namespace HotelDotNet.Controllers
@@ -69,9 +70,20 @@ namespace HotelDotNet.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(block);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var room = await _context.Room
+                    .Include(r => r.Blocks)
+                    .Include(r => r.Bookings)
+                    .FirstAsync(r => r.Id == block.RoomId);
+                if (!BookingCheck.IsAvailable(room, block.From, block.To))
+                {
+                    ModelState.AddModelError("NotAvailable", "Room is not available for given period.");
+                }
+                else
+                {
+                    _context.Add(block);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             var rooms = _context.Room
                 .Select(r => new
@@ -120,23 +132,34 @@ namespace HotelDotNet.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                var room = await _context.Room
+                    .Include(r => r.Blocks)
+                    .Include(r => r.Bookings)
+                    .FirstAsync(r => r.Id == block.RoomId);
+                if (!BookingCheck.IsAvailable(room, block.From, block.To))
                 {
-                    _context.Update(block);
-                    await _context.SaveChangesAsync();
+                    ModelState.AddModelError("NotAvailable", "Room is not available for given period.");
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!BlockExists(block.Id))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(block);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!BlockExists(block.Id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
             }
             var rooms = _context.Room
                 .Select(r => new
