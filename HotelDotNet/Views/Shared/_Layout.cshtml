@@ -37,8 +37,16 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
+        <hr>
         <footer>
-            <p>&copy; 2017 - HotelDotNet</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; @System.DateTime.Now.Year - Localization.StarterWeb</p>
+                </div>
+                <div class="col-md-6 text-right">
+                    @await Html.PartialAsync("_LangPartial")
+                </div>
+            </div>
         </footer>
     </div>
 

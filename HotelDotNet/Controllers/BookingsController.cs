@@ -10,9 +10,9 @@ using HotelDotNet.Models;
 using HotelDotNet.Models.ViewModels;
 using HotelDotNet.Utilities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Localization;
 
-namespace HotelDotNet.Controllers
-{
+namespace HotelDotNet.Controllers {
     [Authorize]
     public class BookingsController : Controller
     {

@@ -1,22 +1,26 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using HotelDotNet.Models
+@using HotelDotNet.Resources
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
 
+@inject IStringLocalizer<SharedResources> Localizer
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
 <ul class="nav navbar-nav">
-    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-@if (User.IsInRole("Receptionist") || User.IsInRole("Administrator"))
+    <li><a asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a></li>
+    <li><a asp-area="" asp-controller="Home" asp-action="About">@Localizer["About"]</a></li>
+    <li><a asp-area="" asp-controller="Home" asp-action="Contact">@Localizer["Contact"]</a></li>
+@if(User.IsInRole("Receptionist") || User.IsInRole("Administrator"))
 {
-    <li><a asp-area="" asp-controller="Rooms" asp-action="Index">Rooms</a></li>
-    <li><a asp-area="" asp-controller="Bookings" asp-action="Index">User-Bookings</a></li>
-    <li><a asp-area="" asp-controller="Payments" asp-action="Index">Payments</a></li>
-    <li><a asp-area="" asp-controller="Blocks" asp-action="Index">Blocks</a></li>
+    <li><a asp-area="" asp-controller="Rooms" asp-action="Index">@Localizer["Rooms"]</a></li>
+    <li><a asp-area="" asp-controller="Bookings" asp-action="Index">@Localizer["Bookings"]</a></li>
+    <li><a asp-area="" asp-controller="Payments" asp-action="Index">@Localizer["Payments"]</a></li>
+    <li><a asp-area="" asp-controller="Blocks" asp-action="Index">@Localizer["Blocks"]</a></li>
 }
-@if (User.IsInRole("Guest"))
+    @if(User.IsInRole("Guest"))
 {
-    <li><a asp-area="" asp-controller="GuestBooking" asp-action="Index">Bookings</a></li>
+    <li><a asp-area="" asp-controller="GuestBooking" asp-action="Index">@Localizer["Bookings"]</a></li>
 }
 </ul>

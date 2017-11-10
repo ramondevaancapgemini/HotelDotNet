@@ -19,7 +19,7 @@ namespace HotelDotNet.Models.ViewModels
         [DisplayName("Room")]
         public Room Room { get; set; }
         [Required]
-        [DisplayName("RoomId")]
+        [DisplayName("Room id")]
         public long RoomId { get; set; }
     }
 }

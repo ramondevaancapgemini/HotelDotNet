@@ -12,6 +12,8 @@ using HotelDotNet.Models;
 using HotelDotNet.Services;
 using HotelDotNet.Utilities;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Routing.Constraints;
 
 namespace HotelDotNet
 {
@@ -28,6 +30,24 @@ namespace HotelDotNet
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en-US"),
+                    new CultureInfo("nl-NL")
+                };
+
+                options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+
+                //options.RequestCultureProviders.Insert(0, new CustomRequestCultureProvider(async context =>
+                //{
+                //    // My custom request culture logic
+                //    return new ProviderCultureResult("en-US");
+                //}));
+            });
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -48,8 +68,8 @@ namespace HotelDotNet
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
-
             services.AddMvc()
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                 .AddDataAnnotationsLocalization();
         }
 
@@ -89,6 +109,15 @@ namespace HotelDotNet
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "cultureRoute",
+                    template: "{culture}/{controller}/{action}/{id?}",
+                    defaults: new {controller = "Home", action = "Index"},
+                    constraints: new
+                    {
+                        culture = new RegexRouteConstraint("^[a-z]{2}(?:-[A-Z]{2})?$")
+                    });
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
